@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class name="Canon" extends="Actor" enable="true" strideversion="1">
+<class name="Canon" extends="Actor" extends-java="Actor" enable="true" strideversion="1">
     <javadoc xml:space="preserve"/>
     <imports>
         <import target="java.util.*" enable="true"/>
         <import target="greenfoot.*" enable="true"/>
     </imports>
     <implements/>
-    <fields/>
+    <fields>
+        <variable access="public" static="true" type="int" type-java="int" name="Cooldown" value="-10" value-java="-10" enable="true"/>
+    </fields>
     <constructors/>
     <methods>
-        <method access="public" type="void" name="act" enable="true">
+        <method access="public" type="void" type-java="void" name="act" enable="true">
             <javadoc xml:space="preserve">Act - do whatever the Canon wants to do. This method is called whenever the 'Act' or 'Run' button gets pressed in the environment.</javadoc>
             <params/>
             <throws/>
-            <body/>
+            <body>
+                <call expression="shootCannonBall()" expression-java="shootCannonBall()" enable="true"/>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="shootCannonBall" enable="true">
+            <javadoc xml:space="preserve">shoots cannon ball</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <if condition="Cooldown&lt;=0" condition-java="Cooldown &lt;= 0" enable="true">
+                    <ifStatements>
+                        <variable type="CannonBall" type-java="CannonBall" name="newBall" value="new CannonBall(Greenfoot.getRandomNumber(3)+10)" value-java=" new CannonBall(Greenfoot.getRandomNumber(3) + 10)" enable="true"/>
+                        <call expression="newBall.setRotation(getRotation())" expression-java="newBall.setRotation(getRotation())" enable="true"/>
+                        <call expression="this.getWorld().addObject(newBall,this.getX(),this.getY())" expression-java="this.getWorld().addObject(newBall, this.getX(), this.getY())" enable="true"/>
+                        <assign dest="Cooldown" dest-java="Cooldown" src="120" src-java="120" enable="true"/>
+                    </ifStatements>
+                    <else>
+                        <assign dest="Cooldown" dest-java="Cooldown" src="Cooldown-1" src-java="Cooldown - 1" enable="true"/>
+                    </else>
+                </if>
+            </body>
         </method>
     </methods>
 </class>
